@@ -1,0 +1,35 @@
+name: Deploy Vite React
+
+on:
+  push:
+    tags:
+      - 'v*' # 仅当推送以v开头的tag时触发，例如 v1.0.0
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧱 Build project
+        run: npm run build
+
+      # 部署到 GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # 下面两行可选：显示Tag版本
+          commit_message: "Deploy from tag ${{ github.ref_name }}"
