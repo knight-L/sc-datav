@@ -4,10 +4,10 @@
  * @LastEditors: Knight
  * @LastEditTime: 2025-11-02 19:34:42
  */
-import SichuanMap from "./pages/SichuanMap";
+import SCDataV from "./pages/SCDataV";
 
 function App() {
-  return <SichuanMap />;
+  return <SCDataV />;
 }
 
 export default App;

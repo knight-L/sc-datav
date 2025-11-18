@@ -27,24 +27,17 @@ export interface ChartProps {
   theme?: string | object | undefined;
 }
 
-export interface ChartRef {
-  instance: () => echarts.EChartsType | undefined;
-}
-
-const Chart: ForwardRefRenderFunction<ChartRef, ChartProps> = (props, ref) => {
+const Chart: ForwardRefRenderFunction<echarts.EChartsType, ChartProps> = (
+  props,
+  ref
+) => {
   const chartBox = useRef<HTMLDivElement>(null);
   const chart = useRef<echarts.EChartsType>(null!);
   const size = useSize(chartBox);
 
   echarts.use(props.use);
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      instance: () => chart.current,
-    }),
-    [chart]
-  );
+  useImperativeHandle(ref, () => chart.current, [chart]);
 
   useEffect(() => {
     chart.current = echarts.init(chartBox.current as HTMLElement);
