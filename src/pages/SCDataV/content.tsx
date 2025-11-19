@@ -99,6 +99,8 @@ const Github = styled.a.attrs({
     </svg>
   ),
 })`
+  width: 44px;
+  height: 44px;
   font-size: 44px;
   padding-right: 16px;
 `;
