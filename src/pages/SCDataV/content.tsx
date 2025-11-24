@@ -1,10 +1,10 @@
 import { useControls } from "leva";
 import styled from "styled-components";
 import useMoveTo from "@/hooks/useMoveTo";
-import SeamVirtualScroll from "@/components/seamVirtualScroll";
 import Chart1 from "./chart1";
 import Chart2 from "./chart2";
 import Chart3 from "./chart3";
+import Chart4 from "./chart4";
 
 import bg from "@/assets/card_bg.jpg";
 
@@ -156,21 +156,7 @@ export default function Content() {
         </Card>
         <Card ref={rightBox1.ref} style={{ gridArea: "3 / 4 / 5 / 5" }}>
           <CardTitle style={{ textAlign: "right" }}>进出口商品信息</CardTitle>
-          <SeamVirtualScroll
-            rowHeight={50}
-            column={[
-              { title: "", dataIndex: "value1" },
-              { title: "类型", dataIndex: "value2" },
-              { title: "数量(万)", dataIndex: "value3" },
-              { title: "贸易值(万元)", dataIndex: "value4" },
-            ]}
-            data={Array.from({ length: 100 }, (_, k) => ({
-              value1: `${k + 1}`,
-              value2: `类型${k + 1}`,
-              value3: (Math.random() * 100).toFixed(2),
-              value4: (Math.random() * 1000).toFixed(2),
-            }))}
-          />
+          <Chart4 />
         </Card>
       </GridWrapper>
     </Wrapper>
