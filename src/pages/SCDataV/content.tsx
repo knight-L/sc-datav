@@ -151,7 +151,7 @@ export default function Content() {
           <Chart2 />
         </Card>
         <Card ref={rightBox.ref} style={{ gridArea: "1 / 4 / 3 / 5" }}>
-          <CardTitle style={{ textAlign: "right" }}>三产增加值</CardTitle>
+          <CardTitle style={{ textAlign: "right" }}>三产季度增加值</CardTitle>
           <Chart3 />
         </Card>
         <Card ref={rightBox1.ref} style={{ gridArea: "3 / 4 / 5 / 5" }}>
