@@ -1,5 +1,13 @@
 import { Suspense, useMemo, useRef } from "react";
-import { OrbitControls, Text, Loader, Billboard } from "@react-three/drei";
+import {
+  OrbitControls,
+  Text,
+  Loader,
+  Billboard,
+  Stars,
+  Stats,
+  Center,
+} from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { geoMercator, type GeoProjection } from "d3-geo";
 import {
@@ -14,8 +22,13 @@ import ShiftMaterial from "./shaderMaterial";
 import Bottom from "./bottom";
 import Lights from "./lights";
 import type { CityGeoJSON } from "@/pages/SCDataV/map";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import GeoTrail from "./geoTrail";
+
 import scMapData from "@/assets/sc.json";
-const mapData = scMapData as CityGeoJSON;
+import scOutlineData from "@/assets/sc_outline.json";
+const mapData = scMapData as CityGeoJSON,
+  outlineData = scOutlineData as CityGeoJSON;
 
 function City(props: {
   projection: GeoProjection;
@@ -51,7 +64,7 @@ function City(props: {
     return [shape, [x, -y, depth + 0.1] as [number, number, number]];
   }, [feature, projection, depth]);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     materialRef.current.uniforms.time.value += 0.005;
     groupRef.current.scale.lerp(vector3.current, 0.1);
   });
@@ -96,37 +109,34 @@ function Base(props: { depth?: number }) {
   const projection = useMemo(() => {
     return geoMercator()
       .center(mapData.features[0].properties.centroid)
-      .translate([2, 0]);
+      .translate([0, 0]);
   }, []);
 
-  //   useEffect(() => {
-  //     const box = new Box3().setFromObject(groupRef.current);
-  //     const center = box.getCenter(new Vector3());
-  //     groupRef.current.position.sub(center);
-  //   }, []);
-
   return (
-    <group
-      ref={groupRef}
-      rotation={[-Math.PI / 2, 0, 0]}
-      scale={0.5}
-      position={[0, 0, 0]}>
-      {mapData.features.map((feature, idx) => (
-        <City
-          key={feature.properties.name + idx}
-          depth={depth}
-          projection={projection}
-          feature={feature}
-          //   coords={feature.geometry.coordinates}
-        />
-      ))}
-    </group>
+    <Center top>
+      <group
+        ref={groupRef}
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={0.5}
+        position={[0, 0, 0]}>
+        {mapData.features.map((feature, idx) => (
+          <City
+            key={feature.properties.name + idx}
+            depth={depth}
+            projection={projection}
+            feature={feature}
+          />
+        ))}
+        <GeoTrail projection={projection} feature={outlineData.features[0]} />
+      </group>
+    </Center>
   );
 }
 
 export default function Map() {
   return (
     <>
+      <Stats />
       <Canvas
         camera={{
           fov: 70,
@@ -140,6 +150,10 @@ export default function Map() {
           <Base />
         </Suspense>
         <Bottom />
+        <Stars saturation={0} count={400} speed={0.5} />
+        <EffectComposer>
+          <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
+        </EffectComposer>
         <OrbitControls />
       </Canvas>
       <Loader />

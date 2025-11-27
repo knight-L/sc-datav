@@ -1,17 +1,11 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
-import {
-  AdditiveBlending,
-  Color,
-  Mesh,
-  RepeatWrapping,
-  SRGBColorSpace,
-} from "three";
+import { AdditiveBlending, Color, Mesh, RepeatWrapping } from "three";
 
 import rotationBorder1 from "@/assets/rotationBorder1.png";
 import rotationBorder2 from "@/assets/rotationBorder2.png";
-import guangquan01 from "@/assets/guangquan01.png";
+// import guangquan01 from "@/assets/guangquan01.png";
 import grid from "@/assets/grid.png";
 import gridBlack from "@/assets/gridBlack.png";
 import quan from "@/assets/quan.png";
@@ -36,11 +30,11 @@ export default function Bottom() {
   });
   const meshRef1 = useRef<Mesh>(null!);
   const meshRef2 = useRef<Mesh>(null!);
-  const guangquanTex = useTexture(guangquan01, (tex) => {
-    tex.colorSpace = SRGBColorSpace;
-    tex.wrapS = tex.wrapT = RepeatWrapping;
-    tex.repeat.set(1, 1);
-  });
+  //   const guangquanTex = useTexture(guangquan01, (tex) => {
+  //     tex.colorSpace = SRGBColorSpace;
+  //     tex.wrapS = tex.wrapT = RepeatWrapping;
+  //     tex.repeat.set(1, 1);
+  //   });
 
   const [gridTex, gridBlackTex] = useTexture([grid, gridBlack], (tex) =>
     tex.forEach((el) => {
@@ -55,7 +49,7 @@ export default function Bottom() {
     rotationBorder2,
   ]);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     meshRef0.current.uTime.value += delta;
     if (meshRef0.current.uTime.value > 100 / 10) {
       meshRef0.current.uTime.value = 0.0;
@@ -173,7 +167,7 @@ export default function Bottom() {
         />
       </mesh> */}
       <mesh position={[0, 0.01, 0]}>
-        <planeGeometry args={[30, 30]} />
+        <planeGeometry args={[40, 40]} />
         <meshBasicMaterial
           transparent
           depthTest={false}
@@ -182,7 +176,7 @@ export default function Bottom() {
         />
       </mesh>
       <mesh ref={meshRef1} position={[0, 0.02, 0]}>
-        <planeGeometry args={[20, 20]} />
+        <planeGeometry args={[16, 16]} />
         <meshBasicMaterial
           transparent
           map={rotationBorder1Tex}
@@ -193,7 +187,7 @@ export default function Bottom() {
         />
       </mesh>
       <mesh ref={meshRef2} position={[0, 0.02, 0]}>
-        <planeGeometry args={[19, 19]} />
+        <planeGeometry args={[15, 15]} />
         <meshBasicMaterial
           transparent
           map={rotationBorder2Tex}

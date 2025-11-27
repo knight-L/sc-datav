@@ -23,15 +23,15 @@ export default function Lights() {
       <pointLight
         ref={point0Ref}
         color="#0e81fb"
-        intensity={1600}
-        distance={200}
+        intensity={160}
+        distance={10000}
         position={[-3, 10, -3]}
       />
       <pointLight
         ref={point1Ref}
         color="#1f5f7a"
-        intensity={1000}
-        distance={300}
+        intensity={100}
+        distance={100}
         position={[-4, 8, 10]}
       />
     </>
