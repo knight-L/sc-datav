@@ -61,13 +61,16 @@ export default function FlyLine({ projection }: { projection: GeoProjection }) {
     );
   }, [projection]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!curve2.current || !controls.animation) return;
 
     const pts = points.current;
     const total = pts.length;
-    const start = index.current;
-    const end = index.current + num.current;
+
+    index.current = (index.current + 60 * delta) % total;
+
+    const start = Math.floor(index.current);
+    const end = start + num.current;
 
     let segment;
 
@@ -83,8 +86,6 @@ export default function FlyLine({ projection }: { projection: GeoProjection }) {
     curve2.current.points = segment;
     const newPoints2 = curve2.current.getSpacedPoints(200);
     geometry.current.setFromPoints(newPoints2);
-
-    index.current = (index.current + 1) % total;
   });
 
   return (
