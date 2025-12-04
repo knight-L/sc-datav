@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, type ComponentProps } from "react";
 import styled from "styled-components";
 import autofit from "autofit.js";
 
@@ -12,9 +12,9 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export default function AutoFit(
-  props: Omit<typeof Wrapper.defaultProps, "id">
-) {
+export type AutoFitProps = Omit<ComponentProps<typeof Wrapper>, "id">;
+
+export default function AutoFit(props: AutoFitProps) {
   const id = `autofit_${Date.now().toString(36)}`;
 
   useLayoutEffect(() => {
