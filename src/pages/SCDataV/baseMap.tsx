@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { Billboard, Line, Text, useTexture } from "@react-three/drei";
 import {
   Box2,
@@ -30,9 +30,12 @@ export default function BaseMap({ projection }: { projection: GeoProjection }) {
       })
   );
 
-  const { citys, regions, bbox } = useMemo(() => {
-    const citys: { name: string; center: Vector3 }[] = [];
-    const regions: Vector2[][] = [];
+  const { regions, bbox } = useMemo(() => {
+    const regions: {
+      name: string;
+      center: Vector3;
+      points: Vector2[][];
+    }[] = [];
     const bbox = new Box2();
 
     const toV2 = (coord: number[]) => {
@@ -46,22 +49,23 @@ export default function BaseMap({ projection }: { projection: GeoProjection }) {
       const [x, y] = projection(
         feature.properties.centroid ?? feature.properties.center
       )!;
-      citys.push({
+
+      const points = feature.geometry.coordinates.reduce<Vector2[][]>(
+        (pre, cur) => [
+          ...pre,
+          ...cur.map<Vector2[]>((coordinates) => coordinates.map(toV2)),
+        ],
+        []
+      );
+
+      regions.push({
         name: feature.properties.name,
         center: new Vector3(x, -y),
-      });
-
-      feature.geometry.coordinates.forEach((polygonSet) => {
-        const rings = polygonSet.reduce<Vector2[]>((pre, coordinates) => {
-          return [...pre, ...coordinates.map(toV2)];
-        }, []);
-
-        regions.push(rings);
+        points,
       });
     });
 
     return {
-      citys,
       regions,
       bbox,
     };
@@ -70,8 +74,8 @@ export default function BaseMap({ projection }: { projection: GeoProjection }) {
   return newStyle ? (
     <group renderOrder={0} position={[0, 0, 0.51]}>
       {regions.map((reg, i) => (
-        <group key={`new` + i}>
-          <ShapeBox bbox={bbox} args={[new Shape(reg)]}>
+        <Fragment key={`new` + i}>
+          <ShapeBox bbox={bbox} args={[reg.points.map((e) => new Shape(e))]}>
             <meshStandardMaterial
               map={texture1}
               normalMap={texture2}
@@ -81,25 +85,22 @@ export default function BaseMap({ projection }: { projection: GeoProjection }) {
               side={DoubleSide}
             />
           </ShapeBox>
-        </group>
-      ))}
-      <group position={[0, 0, 0.6]}>
-        {citys.map((item, index) => {
-          return (
-            <Billboard key={"city_" + index} position={item.center}>
+
+          <group position={[0, 0, 0.6]}>
+            <Billboard position={reg.center}>
               <Text color="#ffffff" fontSize={0.3} fontWeight={600}>
-                {item.name}
+                {reg.name}
               </Text>
             </Billboard>
-          );
-        })}
-      </group>
+          </group>
+        </Fragment>
+      ))}
     </group>
   ) : (
     <group renderOrder={0} position={[0, 0, 0.51]}>
       {regions.map((reg, i) => (
-        <group key={i}>
-          <ShapeBox bbox={bbox} args={[new Shape(reg)]}>
+        <Fragment key={i}>
+          <ShapeBox bbox={bbox} args={[reg.points.map((e) => new Shape(e))]}>
             <meshStandardMaterial
               map={texture1}
               normalMap={texture2}
@@ -111,23 +112,20 @@ export default function BaseMap({ projection }: { projection: GeoProjection }) {
 
           <Line
             position={[0, 0, 0.01]}
-            points={reg}
+            points={reg.points[0]}
             linewidth={1}
             color="#a7a7a7"
           />
-        </group>
-      ))}
-      <group position={[0, 0, 0.2]}>
-        {citys.map((item, index) => {
-          return (
-            <Billboard key={"city_" + index} position={item.center}>
+
+          <group position={[0, 0, 0.2]}>
+            <Billboard position={reg.center}>
               <Text color="#ffffff" fontSize={0.3} fontWeight={600}>
-                {item.name}
+                {reg.name}
               </Text>
             </Billboard>
-          );
-        })}
-      </group>
+          </group>
+        </Fragment>
+      ))}
     </group>
   );
 }
