@@ -1,6 +1,5 @@
-import { Suspense } from "react";
 import styled from "styled-components";
-import { OrbitControls, ContactShadows, Loader } from "@react-three/drei";
+import { OrbitControls, ContactShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import type { CityGeoJSON } from "@/pages/SCDataV/map";
 import Content from "./content";
@@ -41,9 +40,7 @@ export default function Map() {
           <Lights />
           <Sky />
 
-          <Suspense fallback={null}>
-            <Base data={mapData} outlineData={outlineData} />
-          </Suspense>
+          <Base data={mapData} outlineData={outlineData} />
 
           <Bottom />
 
@@ -69,7 +66,6 @@ export default function Map() {
         </Canvas>
       </CanvasWrapper>
       <Content />
-      <Loader />
     </Wrapper>
   );
 }

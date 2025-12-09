@@ -1,8 +1,8 @@
 # 数据可视化大屏 (SC DataV)
 
-[http://localhost:5173/sc-datav/#/](http://localhost:5173/sc-datav/#/)
+[https://knight-l.github.io/sc-datav/#/](https://knight-l.github.io/sc-datav/#/)
 ![demo1](./demo_1.png)
-[http://localhost:5173/sc-datav/#/demo1](http://localhost:5173/sc-datav/#/demo1)
+[https://knight-l.github.io/sc-datav/#/demo1](https://knight-l.github.io/sc-datav/#/demo1)
 ![demo2](./demo_2.png)
 
 ## 功能特性
