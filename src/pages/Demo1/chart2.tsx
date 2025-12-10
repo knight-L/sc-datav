@@ -1,13 +1,29 @@
 import { useRef } from "react";
 import useRafInterval from "@/hooks/useRafInterval";
 import Chart from "@/components/chart";
-import { LineChart } from "echarts/charts";
+import type { ComposeOption, EChartsType } from "echarts/core";
+import { LineChart, type LineSeriesOption } from "echarts/charts";
 import {
   DataZoomComponent,
+  GridComponent,
   LegendComponent,
   MarkPointComponent,
+  TooltipComponent,
+  type DataZoomComponentOption,
+  type GridComponentOption,
+  type LegendComponentOption,
+  type MarkPointComponentOption,
+  type TooltipComponentOption,
 } from "echarts/components";
-import type { EChartsType } from "echarts/core";
+
+type LineOption = ComposeOption<
+  | LineSeriesOption
+  | TooltipComponentOption
+  | GridComponentOption
+  | LegendComponentOption
+  | DataZoomComponentOption
+  | MarkPointComponentOption
+>;
 
 const colors = ["#fbdf88", "#ea580c"];
 const dataType = { type1: "今年同期", type2: "去年同期" };
@@ -17,7 +33,7 @@ let data: [string[], number[], number[]] = [[], [], []];
 for (let i = 0; i < 30; i++) {
   data[0].push(`${i + 1}`.padStart(2, "0"));
   data[1].push(Math.round(i * Math.random() * 1000));
-  data[2].push(Math.round(i * Math.random() * 1020));
+  data[2].push(Math.round(i * Math.random() * 1050));
 }
 
 export default function Chart2() {
@@ -38,9 +54,16 @@ export default function Chart2() {
   }, 2_000);
 
   return (
-    <Chart
+    <Chart<LineOption>
       ref={chartRef}
-      use={[LineChart, LegendComponent, DataZoomComponent, MarkPointComponent]}
+      use={[
+        LineChart,
+        TooltipComponent,
+        GridComponent,
+        LegendComponent,
+        DataZoomComponent,
+        MarkPointComponent,
+      ]}
       option={{
         tooltip: {
           trigger: "axis",
@@ -48,9 +71,9 @@ export default function Chart2() {
             type: "shadow",
           },
           textStyle: {
-            color: "#fff",
+            color: "rgba(0, 0, 0,0.8)",
           },
-          backgroundColor: "rgba(234, 88, 12,0.3)",
+          backgroundColor: "rgba(255, 245, 232,0.8)",
           borderColor: colors[1],
           borderWidth: 1,
           borderRadius: 8,
@@ -77,6 +100,7 @@ export default function Chart2() {
         calculable: true,
         xAxis: {
           type: "category",
+          boundaryGap: false,
           axisLine: {
             lineStyle: {
               color: "rgba(0, 0, 0, 0.1)",

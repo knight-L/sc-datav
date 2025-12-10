@@ -1,9 +1,26 @@
 import Chart from "@/components/chart";
-import { PictorialBarChart } from "echarts/charts";
-import { GridComponent, TooltipComponent } from "echarts/components";
+import type { ComposeOption } from "echarts/core";
+import {
+  PictorialBarChart,
+  type BarSeriesOption,
+  type PictorialBarSeriesOption,
+} from "echarts/charts";
+import {
+  GridComponent,
+  TooltipComponent,
+  type GridComponentOption,
+  type TooltipComponentOption,
+} from "echarts/components";
 import { LabelLayout } from "echarts/features";
 
 import cityData from "./cityData";
+
+type BarOption = ComposeOption<
+  | PictorialBarSeriesOption
+  | BarSeriesOption
+  | TooltipComponentOption
+  | GridComponentOption
+>;
 
 const colors = ["#fbdf88", "#ea580c"];
 
@@ -16,14 +33,14 @@ const data = Array.from({ length: 5 }, (_, k) => ({
 
 export default function Chart1() {
   return (
-    <Chart
+    <Chart<BarOption>
       use={[PictorialBarChart, GridComponent, TooltipComponent, LabelLayout]}
       option={{
         grid: {
           top: 0,
           bottom: 0,
           left: "8%",
-          right: "16%",
+          right: "12%",
         },
         xAxis: {
           show: false,
@@ -36,12 +53,12 @@ export default function Chart1() {
             show: false,
           },
           axisLabel: {
-            fontSize: 16,
+            fontSize: 14,
             margin: 16,
             inside: false,
             verticalAlign: "middle",
             color: "#000000",
-            formatter: (v: string, i: number) => {
+            formatter: (v, i) => {
               return `{a|NO.${++i}} ${v}`;
             },
             rich: {
@@ -85,10 +102,10 @@ export default function Chart1() {
               show: true,
               color: "#000000",
               valueAnimation: true,
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             },
-            labelLayout: (params: any) => {
+            labelLayout: (params) => {
               return {
                 x: "100%",
                 y: params.rect.y + params.rect.height / 2,

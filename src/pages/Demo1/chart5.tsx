@@ -1,38 +1,36 @@
+import { PieChart, type PieSeriesOption } from "echarts/charts";
 import Chart from "@/components/chart";
 import useRafInterval from "@/hooks/useRafInterval";
-import { PieChart } from "echarts/charts";
+import type { ComposeOption } from "echarts/core";
+import {
+  LegendComponent,
+  TooltipComponent,
+  type LegendComponentOption,
+  type TooltipComponentOption,
+} from "echarts/components";
 
-const data = [];
-
-const trafficWay = [
-  {
-    name: "第一季度",
-    value: 20,
-  },
-  {
-    name: "第二季度",
-    value: 10,
-  },
-  {
-    name: "第三季度",
-    value: 30,
-  },
-  {
-    name: "第四季度",
-    value: 40,
-  },
-];
+type PieOption = ComposeOption<
+  PieSeriesOption | TooltipComponentOption | LegendComponentOption
+>;
 
 const color = ["#fbdf88", "#ffa800", "#ff5b00", "#ff3000"];
-for (let i = 0; i < trafficWay.length; i++) {
-  data.push(
+
+const trafficWay = [
+  { name: "第一季度", value: 20 },
+  { name: "第二季度", value: 10 },
+  { name: "第三季度", value: 30 },
+  { name: "第四季度", value: 40 },
+];
+
+const data = trafficWay.reduce<PieSeriesOption["data"]>((pre, cur, i) => {
+  pre?.push(
     {
-      value: trafficWay[i].value,
-      name: trafficWay[i].name,
+      value: cur.value,
+      name: cur.name,
       itemStyle: {
-        borderWidth: 5,
+        borderRadius: 10,
         shadowBlur: 20,
-        borderColor: color[i],
+        color: color[i],
         shadowColor: color[i],
       },
     },
@@ -46,38 +44,15 @@ for (let i = 0; i < trafficWay.length; i++) {
       },
     }
   );
-}
-const seriesOption = [
-  {
-    name: "",
-    type: "pie",
-    center: ["30%", "50%"],
-    radius: [75, 80],
-    label: {
-      show: false,
-    },
-    labelLine: {
-      show: false,
-    },
-    itemStyle: {
-      label: {
-        show: false,
-        position: "outside",
-        color: "#ddd",
-      },
-      labelLine: {
-        show: false,
-      },
-    },
-    data: data,
-  },
-];
+  return pre;
+}, []);
+
 export default function Chart5() {
   useRafInterval(() => {}, 3_000, true);
 
   return (
-    <Chart
-      use={[PieChart]}
+    <Chart<PieOption>
+      use={[PieChart, TooltipComponent, LegendComponent]}
       option={{
         color: color[0],
         tooltip: {
@@ -94,7 +69,19 @@ export default function Chart5() {
           },
           itemGap: 20,
         },
-        series: seriesOption,
+        series: {
+          name: "",
+          type: "pie",
+          center: ["30%", "50%"],
+          radius: [70, 80],
+          label: {
+            show: false,
+          },
+          labelLine: {
+            show: false,
+          },
+          data: data,
+        },
       }}
     />
   );

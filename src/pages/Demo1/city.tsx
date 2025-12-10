@@ -70,6 +70,7 @@ export default function City(props: CityProps) {
           metalness={0.2}
           roughness={0.5}
           side={DoubleSide}
+          color="#f9f3e7"
         />
       </mesh>
       <lineSegments position={[0, 0.01, depth + 0.02]} raycast={() => null}>

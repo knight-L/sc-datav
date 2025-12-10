@@ -12,9 +12,9 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export interface ChartProps {
+export interface ChartProps<T> {
   ref?: Ref<echarts.EChartsType>;
-  option: echarts.EChartsCoreOption;
+  option: T;
   use: Parameters<typeof echarts.use>[0];
   notMerge?: boolean;
   lazyUpdate?: boolean;
@@ -22,7 +22,7 @@ export interface ChartProps {
   theme?: string | object | undefined;
 }
 
-function Chart(props: ChartProps) {
+function Chart<T extends echarts.EChartsCoreOption>(props: ChartProps<T>) {
   const chartBox = useRef<HTMLDivElement>(null);
   const chart = useRef<echarts.EChartsType | null>(null);
   const size = useSize(chartBox);

@@ -3,7 +3,7 @@ import { LineChart } from "echarts/charts";
 import styled from "styled-components";
 import NumberAnimation from "@/components/numberAnimation";
 
-const colors = ["#fbdf88", "#77fbf5"];
+const colors = ["#fbdf88", "#ea580c"];
 const data = [270, 400, 380, 420, 300, 410, 400, 330, 210, 290];
 
 const Wrapper = styled.div`
@@ -80,10 +80,10 @@ export default function Charts4() {
               type: "shadow",
             },
             textStyle: {
-              color: "#fff",
+              color: "rgba(0, 0, 0,0.8)",
             },
-            backgroundColor: "rgba(251, 223, 136,0.3)",
-            borderColor: colors[0],
+            backgroundColor: "rgba(255, 245, 232,0.8)",
+            borderColor: colors[1],
             borderWidth: 1,
             borderRadius: 8,
           },

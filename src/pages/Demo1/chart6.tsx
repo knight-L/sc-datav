@@ -1,8 +1,18 @@
 import Chart from "@/components/chart";
 import useRafInterval from "@/hooks/useRafInterval";
-import { BarChart } from "echarts/charts";
-import type { EChartsType } from "echarts/core";
+import { BarChart, type BarSeriesOption } from "echarts/charts";
+import {
+  GridComponent,
+  TooltipComponent,
+  type GridComponentOption,
+  type TooltipComponentOption,
+} from "echarts/components";
+import type { ComposeOption, EChartsType } from "echarts/core";
 import { useRef } from "react";
+
+type BarOption = ComposeOption<
+  BarSeriesOption | TooltipComponentOption | GridComponentOption
+>;
 
 const data = [3000, 2000, 4000, 5000, 4500];
 const colors = ["#fbdf88", "#ea580c"];
@@ -33,18 +43,18 @@ export default function Chart6() {
   );
 
   return (
-    <Chart
+    <Chart<BarOption>
       ref={chartRef}
-      use={[BarChart]}
+      use={[BarChart, TooltipComponent, GridComponent]}
       option={{
         tooltip: {
           trigger: "axis",
-          backgroundColor: "rgba(234, 88, 12,0.3)",
+          backgroundColor: "rgba(255, 245, 232,0.8)",
           borderColor: colors[1],
           borderWidth: 1,
           borderRadius: 8,
           textStyle: {
-            color: "#fff",
+            color: "rgba(0, 0, 0,0.8)",
             fontSize: 13,
             align: "left",
           },
