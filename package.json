@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build-tx": "tsc -b && vite build --outDir dist/sc-datav",
     "lint": "eslint .",
     "preview": "vite preview"
   },
