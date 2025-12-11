@@ -3,7 +3,7 @@ import { useThree } from "@react-three/fiber";
 import { Center } from "@react-three/drei";
 import { geoMercator } from "d3-geo";
 import { gsap } from "gsap";
-import type { CityGeoJSON } from "@/pages/SCDataV/map";
+import type { CityGeoJSON } from "@/types/map";
 
 import scMapData from "@/assets/sc.json";
 import BaseMap from "./baseMap";

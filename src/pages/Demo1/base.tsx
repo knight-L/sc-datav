@@ -11,7 +11,7 @@ import {
   type Group,
 } from "three";
 import { geoMercator } from "d3-geo";
-import type { CityGeoJSON } from "@/pages/SCDataV/map";
+import type { CityGeoJSON } from "@/types/map";
 import City, { type CityProps } from "./city";
 import loadTexture from "./helpers/loadTexture";
 
