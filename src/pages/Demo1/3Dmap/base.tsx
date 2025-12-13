@@ -145,7 +145,7 @@ export default function Base(props: BaseProps) {
       <Heatmap
         renderOrder={11}
         projection={projection}
-        position-z={depth + 0.1}
+        position-z={depth + 1}
       />
     </group>
   );
