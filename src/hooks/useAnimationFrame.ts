@@ -9,7 +9,7 @@ const useAnimationFrame = (
 
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   useEffect(() => {
     function tick(timestamp: number) {

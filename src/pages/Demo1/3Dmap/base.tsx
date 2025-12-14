@@ -13,6 +13,7 @@ import { geoMercator } from "d3-geo";
 import type { CityGeoJSON } from "@/types/map";
 import City, { type CityProps } from "./city";
 import loadTexture from "../helpers/loadTexture";
+import { useConfigStore } from "../stores";
 
 import map from "@/assets/sc_map.png";
 import normalMap from "@/assets/sc_normal_map.png";
@@ -88,6 +89,9 @@ export default function Base(props: BaseProps) {
     if (!groupRef.current) return;
     const tl = gsap.timeline({
       paused: true,
+      onComplete: () => {
+        useConfigStore.setState({ mapPlayComplete: true });
+      },
     });
 
     tl.add(
@@ -95,7 +99,7 @@ export default function Base(props: BaseProps) {
         x: 60,
         y: 125,
         z: 160,
-        duration: 2.5,
+        duration: 2,
         ease: "circ.out",
       })
     );
@@ -103,17 +107,13 @@ export default function Base(props: BaseProps) {
       tl.to(
         groupRef.current.scale,
         { x: 1, y: 1, z: 1, duration: 1, ease: "circ.out" },
-        2.5
+        2
       )
     );
     groupRef.current.traverse((obj) => {
       if (obj instanceof Mesh || obj instanceof LineSegments) {
         tl.add(
-          tl.to(
-            obj.material,
-            { opacity: 1, duration: 1, ease: "circ.out" },
-            2.5
-          ),
+          tl.to(obj.material, { opacity: 1, duration: 1, ease: "circ.out" }, 2),
           3
         );
       }

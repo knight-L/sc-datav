@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 
 interface ConfigStore {
+  mapPlayComplete: boolean;
   cloud: boolean;
   bar: boolean;
   rotation: boolean;
@@ -12,6 +13,7 @@ interface ConfigStore {
 
 export const useConfigStore = create<ConfigStore>()(
   subscribeWithSelector((set) => ({
+    mapPlayComplete: false,
     cloud: true,
     bar: true,
     rotation: true,

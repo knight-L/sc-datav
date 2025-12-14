@@ -133,7 +133,6 @@ export default function Charts4() {
       <Statistics>
         <StatisticsTitle>收益总计</StatisticsTitle>
         <StatisticsNumber
-          delay={1.5}
           value={99608}
           options={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
         />
@@ -143,7 +142,6 @@ export default function Charts4() {
           <CompanyIcon />
           企业数量
           <Statistics1Number
-            delay={1.5}
             value={7792}
             options={{ maximumFractionDigits: 0 }}
           />

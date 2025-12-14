@@ -88,30 +88,43 @@ const CardTitle = styled.div`
 `;
 
 export default function Content() {
-  const topBox = useMoveTo("toBottom", 0.6, 1);
-  const leftBox = useMoveTo("toRight", 0.8, 1.5);
-  const leftBox1 = useMoveTo("toRight", 0.8, 1.6);
-  const leftBox2 = useMoveTo("toRight", 0.8, 1.7);
-  const rightBox = useMoveTo("toLeft", 0.8, 1.5);
-  const rightBox1 = useMoveTo("toLeft", 0.8, 1.6);
-  const rightBox2 = useMoveTo("toLeft", 0.8, 1.7);
-  const bottomBox = useMoveTo("toTop", 0.8, 1.5);
+  const topBox = useMoveTo("toBottom", 0.6);
+  const leftBox = useMoveTo("toRight", 0.8, 0.5);
+  const leftBox1 = useMoveTo("toRight", 0.8, 0.6);
+  const leftBox2 = useMoveTo("toRight", 0.8, 0.7);
+  const rightBox = useMoveTo("toLeft", 0.8, 0.5);
+  const rightBox1 = useMoveTo("toLeft", 0.8, 0.6);
+  const rightBox2 = useMoveTo("toLeft", 0.8, 0.7);
+  const bottomBox = useMoveTo("toTop", 0.8, 0.5);
 
   useEffect(() => {
-    let initial = true;
-    bottomBox.restart(initial);
+    const unMapPlaySub = useConfigStore.subscribe(
+      (s) => s.mapPlayComplete,
+      (v) => {
+        if (v) {
+          topBox.restart();
+          bottomBox.restart();
+          leftBox.restart();
+          leftBox1.restart();
+          leftBox2.restart();
+          rightBox.restart();
+          rightBox1.restart();
+          rightBox2.restart();
+        }
+      }
+    );
 
-    const unSub = useConfigStore.subscribe(
+    const unModeSub = useConfigStore.subscribe(
       (s) => s.mode,
       (v) => {
         if (v) {
-          topBox.restart(initial);
-          leftBox.restart(initial);
-          leftBox1.restart(initial);
-          leftBox2.restart(initial);
-          rightBox.restart(initial);
-          rightBox1.restart(initial);
-          rightBox2.restart(initial);
+          topBox.restart();
+          leftBox.restart();
+          leftBox1.restart();
+          leftBox2.restart();
+          rightBox.restart();
+          rightBox1.restart();
+          rightBox2.restart();
         } else {
           topBox.reverse();
           leftBox.reverse();
@@ -121,15 +134,12 @@ export default function Content() {
           rightBox1.reverse();
           rightBox2.reverse();
         }
-      },
-      { fireImmediately: true }
+      }
     );
 
-    initial = false;
-
     return () => {
-      initial = true;
-      unSub();
+      unMapPlaySub();
+      unModeSub();
     };
   }, []);
 

@@ -19,9 +19,9 @@ export default function Loading() {
         xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="waveGradWarm" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#fbdf88" stopOpacity="0" />
-            <stop offset="50%" stopColor="#fbdf88" stopOpacity="1" />
-            <stop offset="100%" stopColor="#fbdf88" stopOpacity="0" />
+            <stop offset="0%" stopColor="#e8b10a" stopOpacity="0" />
+            <stop offset="50%" stopColor="#e8b10a" stopOpacity="1" />
+            <stop offset="100%" stopColor="#e8b10a" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="waveGradWarm1" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#ea580c" stopOpacity="0" />

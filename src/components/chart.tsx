@@ -1,4 +1,11 @@
-import React, { type Ref, useEffect, useImperativeHandle, useRef } from "react";
+import React, {
+  type Ref,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import * as echarts from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import styled from "styled-components";
@@ -16,8 +23,6 @@ export interface ChartProps<T> {
   ref?: Ref<echarts.EChartsType>;
   option: T;
   use: Parameters<typeof echarts.use>[0];
-  notMerge?: boolean;
-  lazyUpdate?: boolean;
   style?: React.CSSProperties;
   theme?: string | object | undefined;
 }
@@ -29,9 +34,11 @@ function Chart<T extends echarts.EChartsCoreOption>(props: ChartProps<T>) {
 
   echarts.use(props.use);
 
+  const memoOption = useMemo(() => props.option, [props.option]);
+
   useImperativeHandle(props.ref, () => chart.current!);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     chart.current = echarts.init(chartBox.current as HTMLElement);
 
     return () => {
@@ -50,8 +57,14 @@ function Chart<T extends echarts.EChartsCoreOption>(props: ChartProps<T>) {
   );
 
   useEffect(() => {
-    chart.current?.setOption(props.option, props.notMerge, props.lazyUpdate);
-  }, [props.option, props.notMerge, props.lazyUpdate]);
+    if (!chart.current) return;
+
+    chart.current.setOption(memoOption, {
+      notMerge: false,
+      lazyUpdate: true,
+      replaceMerge: ["series"],
+    });
+  }, [memoOption]);
 
   return <Wrapper ref={chartBox} style={props.style} />;
 }
