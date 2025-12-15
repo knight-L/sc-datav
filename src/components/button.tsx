@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import styled from "styled-components";
 
 const GradientBtn = styled.button<{
@@ -62,7 +63,7 @@ const GradientText = styled.div<{
   background-clip: text;
 `;
 
-export default function Button(props: typeof GradientBtn.defaultProps) {
+export default function Button(props: ComponentProps<typeof GradientBtn>) {
   const { children, $color, ...args } = props ?? {};
   return (
     <GradientBtn $color={$color} {...args}>
