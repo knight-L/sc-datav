@@ -2,7 +2,7 @@
 
 | [Demo1 预览地址](https://knight-l.github.io/sc-datav/#/) | [Demo2 预览地址](https://knight-l.github.io/sc-datav/#/demo1) |
 | -------------------------------------------------------- | ------------------------------------------------------------- |
-| ![demo1](./demo_0.png)                                   | ![demo2](./demo_1.png)                                        |
+| ![demo1](./public/demo_0.png)                            | ![demo2](./public/demo_1.png)                                 |
 
 ## 功能特性
 
