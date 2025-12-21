@@ -255,7 +255,7 @@ export default function Bg() {
       }
   >(null!);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     material.current.uniforms.u_time.value = state.clock.getElapsedTime();
   });
 
