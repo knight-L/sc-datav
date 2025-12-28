@@ -1,8 +1,12 @@
-# 数据可视化大屏 (SC DataV)
+# 数据可视化大屏
 
-| [Demo1 预览地址](https://knight-l.github.io/sc-datav/#/) | [Demo2 预览地址](https://knight-l.github.io/sc-datav/#/demo1) |
-| -------------------------------------------------------- | ------------------------------------------------------------- |
-| ![demo1](./public/demo_0.png)                            | ![demo2](./public/demo_1.png)                                 |
+| [预览地址](https://knight-l.github.io/sc-datav/#/demo0) | [预览地址](https://knight-l.github.io/sc-datav/#/demo1) |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| ![demo1](./public/demo_0.jpg)                           | ![demo2](./public/demo_1.jpg)                           |
+
+| [预览地址](https://knight-l.github.io/sc-datav/#/demo2) | [预览地址](https://knight-l.github.io/sc-datav/#/demo3) |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| ![demo3](./public/demo_2.jpg)                           | ![demo4](./public/demo_3.jpg)                           |
 
 ## 功能特性
 
