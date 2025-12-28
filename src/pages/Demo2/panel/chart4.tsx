@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import NumberAnimation from "@/components/numberAnimation";
 
-const colors = ["#3061DB", "#BDCFFF"];
 const data = [
   {
     label: "线路",

@@ -53,8 +53,6 @@ const data = trafficWay.reduce<PieSeriesOption["data"]>((pre, cur, i) => {
   return pre;
 }, []);
 
-const colors = ["#bdcfff", "#3061DB"];
-
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;

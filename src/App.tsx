@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import Demo0 from "./pages/Demo0";
 import Demo1 from "./pages/Demo1";
 import Demo2 from "./pages/Demo2";
+import Demo3 from "./pages/Demo3";
 
 const Index = lazy(() => import("./pages/Index/index"));
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/demo0" element={<Demo0 />} />
         <Route path="/demo1" element={<Demo1 />} />
         <Route path="/demo2" element={<Demo2 />} />
+        <Route path="/demo3" element={<Demo3 />} />
       </Routes>
     </div>
   );

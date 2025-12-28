@@ -145,7 +145,7 @@ function Carousel({ radius = 1.4, count = 8 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
-      url={`/sc-datav/demo_${i % 3}.jpg`}
+      url={`/sc-datav/demo_${i % 4}.jpg`}
       position={[
         Math.sin((i / count) * Math.PI * 2) * radius,
         0,
@@ -154,7 +154,7 @@ function Carousel({ radius = 1.4, count = 8 }) {
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
       onClick={(e) => {
         e.stopPropagation();
-        navigator(["/demo0", "/demo1", "/demo2"][i % 3]);
+        navigator(["/demo0", "/demo1", "/demo2", "/demo3"][i % 4]);
       }}
     />
   ));
