@@ -1,40 +1,103 @@
+import { useRef } from "react";
 import Chart from "@/components/chart";
-import type { ComposeOption } from "echarts/core";
+import type { ComposeOption, EChartsType } from "echarts/core";
 import {
   PictorialBarChart,
   type BarSeriesOption,
   type PictorialBarSeriesOption,
 } from "echarts/charts";
 import {
+  DataZoomComponent,
   GridComponent,
+  TimelineComponent,
   TooltipComponent,
+  type DataZoomComponentOption,
   type GridComponentOption,
+  type TimelineComponentOption,
   type TooltipComponentOption,
 } from "echarts/components";
 import { LabelLayout } from "echarts/features";
 
-import cityData from "./cityData";
+import cityData from "../cityData";
 
 type BarOption = ComposeOption<
   | PictorialBarSeriesOption
   | BarSeriesOption
   | TooltipComponentOption
   | GridComponentOption
+  | DataZoomComponentOption
+  | TimelineComponentOption
 >;
 
 const colors = ["#fbdf88", "#ea580c"];
 
-const citys = Object.keys(cityData);
+// const citys = Object.keys(cityData) as Array<keyof typeof cityData>;
 
-const data = Array.from({ length: 5 }, (_, k) => ({
-  name: citys[k],
-  value: cityData[citys[k] as keyof typeof cityData].population,
-}));
+// const data = Array.from({ length: 5 }, (_, k) => ({
+//   name: citys[k],
+//   value: cityData[citys[k]].population,
+// }));
+
+const data = Object.entries(cityData).reduce<
+  {
+    yAxis: { data: string[] };
+    series: [
+      { data: number[] },
+      { data: { value: number; symbolPosition: "end" }[] }
+    ];
+  }[]
+>((pre, cur, idx) => {
+  // 每 5 个新建一组
+  if (idx % 5 === 0) {
+    pre.push({
+      yAxis: { data: [] },
+      series: [{ data: [] }, { data: [] }],
+    });
+  }
+
+  const currentGroup = pre[pre.length - 1];
+
+  currentGroup.yAxis.data.push(cur[0]);
+  currentGroup.series[0].data.push(cur[1].population);
+  currentGroup.series[1].data.push({
+    value: cur[1].population,
+    symbolPosition: "end",
+  });
+
+  return pre;
+}, []);
 
 export default function Chart1() {
+  const chartRef = useRef<EChartsType>(null);
+
+  //   useRafInterval(() => {
+  //     if (chartRef.current) {
+  //       chartRef.current?.setOption({
+  //         xAxis: [
+  //           {data: categories},
+  //           {data: categories2},
+  //         ],
+  //         series: [
+  //           {data: data},
+  //           {data: data2},
+  //         ],
+  //       });
+  //     }
+  //   }, 2_000);
+
+  console.log(data);
+
   return (
     <Chart<BarOption>
-      use={[PictorialBarChart, GridComponent, TooltipComponent, LabelLayout]}
+      ref={chartRef}
+      use={[
+        PictorialBarChart,
+        GridComponent,
+        TooltipComponent,
+        LabelLayout,
+        DataZoomComponent,
+        TimelineComponent,
+      ]}
       option={{
         grid: {
           top: 0,
@@ -67,16 +130,30 @@ export default function Chart1() {
               },
             },
           },
-          data: data.map((item) => item.name),
+          //   data: data.map((item) => item.name),
           type: "category",
           inverse: true,
           animationDuration: 300,
           animationDurationUpdate: 300,
         },
+        // dataZoom: {
+        //   type: "slider",
+        //   show: false,
+        //   realtime: true,
+        //   startValue: 0,
+        //   endValue: 8,
+        // },
+        timeline: {
+          // show: false,
+          axisType: "category",
+          autoPlay: true,
+          playInterval: 3000,
+          data: ["1", "2", "3", "4", "5"],
+        },
         series: [
           {
             type: "bar",
-            data: data.map((item) => item.value),
+            // data: data.map((item) => item.value),
             realtimeSort: true,
             barWidth: 8,
             itemStyle: {
@@ -115,7 +192,7 @@ export default function Chart1() {
             },
           },
           {
-            name: "dot",
+            name: "",
             type: "pictorialBar",
             symbol: "circle",
             symbolSize: 16,
@@ -126,16 +203,17 @@ export default function Chart1() {
               shadowBlur: 10,
             },
             // realtimeSort: true,
-            data: data.map((item) => ({
-              value: item.value,
-              symbolPosition: "end",
-            })),
+            // data: data.map((item) => ({
+            //   value: item.value,
+            //   symbolPosition: "end",
+            // })),
           },
         ],
         animationDuration: 0,
-        animationDurationUpdate: 1000,
+        // animationDurationUpdate: 1000,
         animationEasing: "linear",
         animationEasingUpdate: "linear",
+        options: data,
       }}
     />
   );

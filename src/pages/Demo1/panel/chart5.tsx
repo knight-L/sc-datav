@@ -1,6 +1,5 @@
 import { PieChart, type PieSeriesOption } from "echarts/charts";
 import Chart from "@/components/chart";
-import useRafInterval from "@/hooks/useRafInterval";
 import type { ComposeOption } from "echarts/core";
 import {
   LegendComponent,
@@ -48,8 +47,6 @@ const data = trafficWay.reduce<PieSeriesOption["data"]>((pre, cur, i) => {
 }, []);
 
 export default function Chart5() {
-  useRafInterval(() => {}, 3_000, true);
-
   return (
     <Chart<PieOption>
       use={[PieChart, TooltipComponent, LegendComponent]}

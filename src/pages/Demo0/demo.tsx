@@ -2,9 +2,9 @@ import { Canvas } from "@react-three/fiber";
 import { Grid, OrbitControls, Stars } from "@react-three/drei";
 import styled from "styled-components";
 import { folder, Leva, useControls } from "leva";
-import { AmbientLight, PointLight } from "./lights";
-import Content from "./content";
-import SCMap from "./scMap";
+import { AmbientLight, PointLight } from "./map/lights";
+import Panel from "./panel";
+import SCMap from "./map";
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,7 +26,7 @@ const LevaBox = styled.div`
   }
 `;
 
-export default function SichuanMap() {
+export default function Demo() {
   const controls = useControls({
     网格: folder({
       infiniteGrid: { label: "显示网格", value: true },
@@ -73,7 +73,7 @@ export default function SichuanMap() {
           </Canvas>
         </CanvasWrapper>
 
-        <Content />
+        <Panel />
       </Wrapper>
     </>
   );

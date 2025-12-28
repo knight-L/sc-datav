@@ -97,7 +97,7 @@ const list = [
 ];
 let yName = list.map((item) => item.name);
 let xData = list.map((item) => item.value);
-let barWidth = 18;
+let barWidth = 14;
 
 export default function Chart1() {
   return (
@@ -179,7 +179,7 @@ export default function Chart1() {
               symbolRepeat: "fixed",
               symbolMargin: "20%",
               symbol: "rect",
-              symbolSize: [10, barWidth],
+              symbolSize: [14, barWidth],
               itemStyle: {
                 color: "#83848d",
               },
@@ -202,7 +202,7 @@ export default function Chart1() {
                 color: "#000",
               },
               symbolRepeat: "fixed",
-              symbolMargin: 4,
+              symbolMargin: 8,
               symbol: "roundRect",
               symbolClip: true,
               symbolSize: [2, barWidth],

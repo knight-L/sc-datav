@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import useMoveTo from "@/hooks/useMoveTo";
 import AutoFit from "@/components/autoFit";
-import { useConfigStore } from "./stores";
+import { useConfigStore } from "../stores";
 
 import Headder from "./headder";
 import Footer from "./footer";

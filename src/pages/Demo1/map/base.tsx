@@ -88,38 +88,28 @@ export default function Base(props: BaseProps) {
   useLayoutEffect(() => {
     if (!groupRef.current) return;
     const tl = gsap.timeline({
-      paused: true,
       onComplete: () => {
         useConfigStore.setState({ mapPlayComplete: true });
       },
     });
 
-    tl.add(
-      gsap.to(camera.position, {
-        x: 60,
-        y: 125,
-        z: 160,
-        duration: 2,
-        ease: "circ.out",
-      })
-    );
-    tl.add(
-      tl.to(
-        groupRef.current.scale,
-        { x: 1, y: 1, z: 1, duration: 1, ease: "circ.out" },
-        2
-      )
+    tl.to(camera.position, {
+      x: 60,
+      y: 125,
+      z: 160,
+      duration: 2,
+      ease: "circ.out",
+    });
+    tl.to(
+      groupRef.current.scale,
+      { x: 1, y: 1, z: 1, duration: 1, ease: "circ.out" },
+      2
     );
     groupRef.current.traverse((obj) => {
       if (obj instanceof Mesh || obj instanceof LineSegments) {
-        tl.add(
-          tl.to(obj.material, { opacity: 1, duration: 1, ease: "circ.out" }, 2),
-          3
-        );
+        tl.to(obj.material, { opacity: 1, duration: 1, ease: "circ.out" }, 2);
       }
     });
-
-    tl.play();
 
     return () => {
       tl.kill();

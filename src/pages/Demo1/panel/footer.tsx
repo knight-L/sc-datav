@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import styled from "styled-components";
-import { useConfigStore } from "./stores";
+import { useConfigStore } from "../stores";
 
 const Wrapper = styled.div`
   position: absolute;

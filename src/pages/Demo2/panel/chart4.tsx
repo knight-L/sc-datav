@@ -8,7 +8,7 @@ const data = [
     value: 120,
     unit: "回",
     label2: "长度",
-    value2: 12200,
+    value2: 1220,
     unit2: "KM",
     icon: (
       <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
@@ -21,7 +21,7 @@ const data = [
     value: 48,
     unit: "座",
     label2: "功率",
-    value2: 18200,
+    value2: 1820,
     unit2: "MVA",
     icon: (
       <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
@@ -35,7 +35,7 @@ const data = [
     value: 140,
     unit: "回",
     label2: "长度",
-    value2: 15200,
+    value2: 1520,
     unit2: "KM",
     icon: (
       <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
@@ -48,7 +48,7 @@ const data = [
     value: 52,
     unit: "座",
     label2: "功率",
-    value2: 11200,
+    value2: 1120,
     unit2: "MVA",
     icon: (
       <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">

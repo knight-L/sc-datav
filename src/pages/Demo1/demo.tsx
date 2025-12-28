@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Content from "./content";
-import Map from "./3Dmap";
+import Panel from "./panel";
+import Map from "./map";
 
 const Wrapper = styled.div`
   position: relative;
@@ -12,7 +12,7 @@ export default function Index() {
   return (
     <Wrapper>
       <Map />
-      <Content />
+      <Panel />
     </Wrapper>
   );
 }

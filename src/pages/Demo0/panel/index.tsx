@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useMapStyleStore } from "./stores";
+import { useMapStyleStore } from "../stores";
 import useMoveTo from "@/hooks/useMoveTo";
 import AutoFit from "@/components/autoFit";
 import Button from "@/components/button";
@@ -107,7 +107,7 @@ const Github = styled.a.attrs({
   padding-right: 16px;
 `;
 
-export default function Content() {
+export default function Panel() {
   const radialRef = useRef<HTMLDivElement>(null!);
   const topBox = useMoveTo("toBottom", 0.6, 1);
   const leftBox = useMoveTo("toRight", 0.8, 1.5);

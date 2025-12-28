@@ -8,10 +8,10 @@ import {
   Vector2,
   Vector3,
 } from "three";
-import { useMapStyleStore } from "./stores";
+import { useMapStyleStore } from "../stores";
 import ShapeBox from "./shape";
 import type { GeoProjection } from "d3-geo";
-import type { CityGeoJSON } from "../../types/map";
+import type { CityGeoJSON } from "@/types/map";
 
 import scMapData from "@/assets/sc.json";
 import textureMap from "@/assets/sc_map.png";

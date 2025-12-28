@@ -4,15 +4,15 @@ import { Center } from "@react-three/drei";
 import { geoMercator } from "d3-geo";
 import { gsap } from "gsap";
 import type { CityGeoJSON } from "@/types/map";
-
-import scMapData from "@/assets/sc.json";
 import BaseMap from "./baseMap";
 import OutLine from "./outline";
 import FlyLine from "./flyLine";
 
+import scMapData from "@/assets/sc.json";
+
 const data = scMapData as CityGeoJSON;
 
-export default function SCMap() {
+export default function Index() {
   const camera = useThree((state) => state.camera);
 
   const projection = useMemo(() => {

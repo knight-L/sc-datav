@@ -1,6 +1,6 @@
 import SeamVirtualScroll from "@/components/seamVirtualScroll";
 
-import cityData from "./cityData";
+import cityData from "../cityData";
 
 const keys = Object.keys(cityData);
 
