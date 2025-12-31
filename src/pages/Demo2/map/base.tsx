@@ -25,6 +25,7 @@ import Label from "./label";
 import { useConfigStore } from "../stores";
 
 import scNormalMap from "@/assets/sc_normal_map1.png";
+import Cones from "./cone";
 
 export interface BaseProps {
   depth?: number;
@@ -162,6 +163,7 @@ export default function Base(props: BaseProps) {
               feature={outlineData.features[0]}
             />
           )}
+          <Cones data={regions} />
           <FlyLine data={regions} />
           <Boundary data={boundary} />
         </group>
@@ -183,6 +185,7 @@ function City(props: {
   const materialRef = useRef<ShaderMaterial>(null!);
   const groupRef = useRef<Group>(null!);
   const vector3 = useRef(new Vector3(1, 1, 1));
+  const { camera } = useThree();
 
   const texture = useTexture(scNormalMap);
 
@@ -208,7 +211,17 @@ function City(props: {
       onPointerOut={() => {
         vector3.current.setZ(1);
         document.body.style.cursor = "auto";
-      }}>
+      }}
+      //   onClick={(e) => {
+      //     e.stopPropagation();
+      //     gsap.to(e.camera.position, {
+      //       x: e.object.position.x,
+      //       y: e.object.position.y,
+      //       z: e.object.position.z,
+      //       duration: 2,
+      //     });
+      //   }}
+    >
       <ShapeBox bbox={bbox} args={[shape, { depth, bevelEnabled: false }]}>
         <meshStandardMaterial
           transparent
