@@ -185,7 +185,6 @@ function City(props: {
   const materialRef = useRef<ShaderMaterial>(null!);
   const groupRef = useRef<Group>(null!);
   const vector3 = useRef(new Vector3(1, 1, 1));
-  const { camera } = useThree();
 
   const texture = useTexture(scNormalMap);
 
