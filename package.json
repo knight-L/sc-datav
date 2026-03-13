@@ -23,7 +23,7 @@
     "react-dom": "^19.1.1",
     "react-router": "^7.9.6",
     "styled-components": "^6.1.19",
-    "three": "^0.181.2",
+    "three": "^0.183.2",
     "topojson-client": "^3.1.0",
     "zustand": "^5.0.8"
   },
@@ -35,18 +35,13 @@
     "@types/react-dom": "^19.1.9",
     "@types/three": "^0.181.0",
     "@types/topojson-client": "^3.1.5",
-    "@vitejs/plugin-react": "^5.0.4",
+    "@vitejs/plugin-react": "^6.0.0",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
-    "vite": "npm:rolldown-vite@7.1.14"
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "npm:rolldown-vite@7.1.14"
-    }
+    "vite": "8.0.0"
   }
 }
